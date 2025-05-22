@@ -1,5 +1,8 @@
-//In questo file diamo solamente la definizione delle funzioni.
+//In questo file diamo solamente la definizione delle funzioni e degli ADS.
 
-extern void funzione();
+
+
+
+
 
 

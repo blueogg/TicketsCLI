@@ -3,7 +3,7 @@
 
 int main() {
 
-funzione();
-return 0
+
+
 
 }
