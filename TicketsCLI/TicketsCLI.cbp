@@ -31,6 +31,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="data/ticketsCar.txt" />
+		<Unit filename="data/ticketsPassengers.txt" />
+		<Unit filename="headers/tickets.h" />
+		<Unit filename="lib/tickets.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
