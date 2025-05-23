@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1747911090 source:c:\users\vic\projects\progettouni\ticketscli\lib\tickets.c
+1748017907 source:c:\users\vic\projects\progettouni\ticketscli\lib\tickets.c
 	<stdio.h>
 	"../headers/tickets.h"
 
-1747910777 source:c:\users\vic\projects\progettouni\ticketscli\main.c
+1748016872 source:c:\users\vic\projects\progettouni\ticketscli\main.c
 	<stdio.h>
 	"headers/tickets.h"
 
-1747949098 c:\users\vic\projects\progettouni\ticketscli\headers\tickets.h
+1748017886 c:\users\vic\projects\progettouni\ticketscli\headers\tickets.h
 
 1747909525 c:\users\vic\projects\progettouni\ticketscli\lib\tickets.c
 	<stdio.h>
