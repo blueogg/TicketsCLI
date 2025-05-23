@@ -3,3 +3,100 @@
 //In questo file definiamo l'implementazione delle funzioni.
 
 
+void menu(){
+    puts("");
+    printf("%s:\n", "Seleziona operazione che vuoi eseguire");
+    puts("");
+    printf("%s", "1 - Crea biglietto passeggero");
+    puts("");
+    printf("%s", "2 - Conta numero dei biglietti");
+    puts("");
+    puts("");
+    while(1){
+    switch(getchar()){
+    case '1':
+        creaBigliettoPasseggero();
+        break;
+    case '2':
+        contaBiglietti();
+        break;
+    }
+
+    }
+
+}
+
+void creaBigliettoPasseggero(){
+
+    bigliettoPasseggero biglietto;
+    passeggero _passeggero;
+    rotta partenza;
+    rotta arrivo;
+
+//INPUT
+    puts("");
+    printf("%s: \n", "Inserisci nome passeggero");
+    scanf("%s", _passeggero.nome);
+    puts("");
+    printf("%s:\n", "Inserisci cognome passeggero");
+    scanf("%s", _passeggero.cognome);
+    puts("");
+    printf("%s:\n", "Inserisci luogo della partenza");
+    scanf("%s", partenza.luogo);
+    printf("%s:\n", "Inserisci data della partenza (dd-mm-yy)");
+    scanf("%s", partenza.data);
+    printf("%s:\n", "Inserisci ora della partenza (hh:mm)");
+    scanf("%s", partenza.ora);
+    printf("%s:\n", "Inserisci luogo dell' arrivo");
+    scanf("%s", arrivo.luogo);
+    printf("%s:\n", "Inserisci data dell'arrivo (dd-mm-yy)");
+    scanf("%s", arrivo.data);
+    printf("%s:\n", "Inserisci ora dell'arrivo (hh:mm)");
+    scanf("%s", arrivo.ora);
+
+//BIGLIETTO
+
+    biglietto.partenza = partenza;
+    biglietto.arrivo = arrivo;
+    biglietto.prezzo = 5;
+    biglietto.utente = _passeggero;
+
+//SCRITTURA BIGLIETTO SU FILE
+
+    FILE* fPtr = NULL;
+    fPtr = fopen("data/ticketsPassengers.bin", "ab+"); // Niente fPtr == NULL check perchè ab+ non ritorna mai NULL (crea il file se non esiste)
+    if(fPtr != NULL){
+    fwrite(&biglietto, sizeof(biglietto), 1, fPtr);
+    puts("Biglietto creato correttamente");
+    fclose(fPtr);
+    menu();
+    }
+    else {
+        puts("Operazione fallita");
+        puts("");
+        menu();
+    }
+}
+
+size_t contaBiglietti(){
+
+int a = numeroBigliettiPasseggero();
+int b = 0; // Biglietti macchina ancora da creare
+numeroBiglietti = a + b;
+printf("Numero totale dei biglietti: %i", numeroBiglietti);
+menu();
+}
+
+size_t numeroBigliettiPasseggero(){
+
+size_t count = 0;
+bigliettoPasseggero biglietto;
+
+    FILE* fPass; // biglietti passeggeri
+    fPass = fopen("data/ticketsPassengers.bin", "r+"); // Biglietti macchin
+    while(fread(&biglietto, sizeof(biglietto), 1, fPass) != NULL ){
+        count++;
+    }
+    return count;
+
+}

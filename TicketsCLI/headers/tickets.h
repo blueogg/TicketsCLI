@@ -1,21 +1,25 @@
-//In questo file diamo solamente la definizione delle funzioni e degli ADS.
+#define lunghezza_data 10
+#define lunghezza_ora 5
+#define lunghezza_luogo 30
+#define lunghezza_nome 15
+#define lunghezza_cognome
+
 
 
     typedef struct{
 
-    char* luogo;
-    char* data;
-    char* ora;
+    char luogo[lunghezza_luogo];
+    char data[lunghezza_data];
+    char ora[lunghezza_ora];
 
     }rotta;
 
     typedef struct{
 
-    char* nome;
-    char* cognome;
+    char nome[lunghezza_nome];
+    char cognome[lunghezza_cognome];
 
     }passeggero;
-
 
     typedef struct{
 
@@ -29,6 +33,7 @@
 
     typedef struct{
 
+
         rotta partenza;
         rotta arrivo;
         int prezzo;
@@ -36,5 +41,11 @@
 
 
     }bigliettoPasseggero;
+
+   void creaBigliettoPasseggero();
+   void menu();
+   size_t numeroBigliettiPasseggero();
+   size_t contaBiglietti();
+   size_t numeroBiglietti;
 
 
