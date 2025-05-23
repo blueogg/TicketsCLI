@@ -44,8 +44,8 @@
 
    void creaBigliettoPasseggero();
    void menu();
-   size_t numeroBigliettiPasseggero();
-   size_t contaBiglietti();
-   size_t numeroBiglietti;
+   int numeroBigliettiPasseggero();
+   int contaBiglietti();
+   int numeroBiglietti;
 
 

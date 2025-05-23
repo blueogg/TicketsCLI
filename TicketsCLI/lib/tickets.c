@@ -5,13 +5,7 @@
 
 void menu(){
     puts("");
-    printf("%s:\n", "Seleziona operazione che vuoi eseguire");
-    puts("");
-    printf("%s", "1 - Crea biglietto passeggero");
-    puts("");
-    printf("%s", "2 - Conta numero dei biglietti");
-    puts("");
-    puts("");
+    printf("%s:\n\n%s\n%s\n\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto passeggero", "2 - Conta numero dei biglietti");
     while(1){
     switch(getchar()){
     case '1':
@@ -21,9 +15,7 @@ void menu(){
         contaBiglietti();
         break;
     }
-
     }
-
 }
 
 void creaBigliettoPasseggero(){
@@ -35,24 +27,13 @@ void creaBigliettoPasseggero(){
 
 //INPUT
     puts("");
-    printf("%s: \n", "Inserisci nome passeggero");
-    scanf("%s", _passeggero.nome);
+    printf("%s: \n", "Inserisci nome e cognome del passeggero");
+    scanf("%s%s", _passeggero.nome, _passeggero.cognome);
     puts("");
-    printf("%s:\n", "Inserisci cognome passeggero");
-    scanf("%s", _passeggero.cognome);
-    puts("");
-    printf("%s:\n", "Inserisci luogo della partenza");
-    scanf("%s", partenza.luogo);
-    printf("%s:\n", "Inserisci data della partenza (dd-mm-yy)");
-    scanf("%s", partenza.data);
-    printf("%s:\n", "Inserisci ora della partenza (hh:mm)");
-    scanf("%s", partenza.ora);
-    printf("%s:\n", "Inserisci luogo dell' arrivo");
-    scanf("%s", arrivo.luogo);
-    printf("%s:\n", "Inserisci data dell'arrivo (dd-mm-yy)");
-    scanf("%s", arrivo.data);
-    printf("%s:\n", "Inserisci ora dell'arrivo (hh:mm)");
-    scanf("%s", arrivo.ora);
+    printf("%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
+    scanf("%s%s%s", partenza.luogo, partenza.data, partenza.ora);
+    printf("%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
+    scanf("%s%s%s", arrivo.luogo, arrivo.data, arrivo.ora);
 
 //BIGLIETTO
 
@@ -78,7 +59,7 @@ void creaBigliettoPasseggero(){
     }
 }
 
-size_t contaBiglietti(){
+int contaBiglietti(){
 
 int a = numeroBigliettiPasseggero();
 int b = 0; // Biglietti macchina ancora da creare
@@ -87,9 +68,9 @@ printf("Numero totale dei biglietti: %i", numeroBiglietti);
 menu();
 }
 
-size_t numeroBigliettiPasseggero(){
+int numeroBigliettiPasseggero(){
 
-size_t count = 0;
+int count = 0;
 bigliettoPasseggero biglietto;
 
     FILE* fPass; // biglietti passeggeri
