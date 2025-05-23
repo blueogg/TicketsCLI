@@ -4,8 +4,7 @@
 
 
 void menu(){
-    puts("");
-    printf("%s:\n\n%s\n%s\n\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto passeggero", "2 - Conta numero dei biglietti");
+    printf("\n%s:\n\n%s\n%s\n\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto passeggero", "2 - Conta numero dei biglietti");
     while(1){
     switch(getchar()){
     case '1':
@@ -59,7 +58,7 @@ void creaBigliettoPasseggero(){
     }
 }
 
-int contaBiglietti(){
+void contaBiglietti(){
 
 int a = numeroBigliettiPasseggero();
 int b = 0; // Biglietti macchina ancora da creare
@@ -74,8 +73,8 @@ int count = 0;
 bigliettoPasseggero biglietto;
 
     FILE* fPass; // biglietti passeggeri
-    fPass = fopen("data/ticketsPassengers.bin", "r+"); // Biglietti macchin
-    while(fread(&biglietto, sizeof(biglietto), 1, fPass) != NULL ){
+    fPass = fopen("data/ticketsPassengers.bin", "r+"); // Biglietti macchina
+    while(fread(&biglietto, sizeof(biglietto), 1, fPass)){
         count++;
     }
     return count;

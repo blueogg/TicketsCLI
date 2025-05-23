@@ -45,7 +45,7 @@
    void creaBigliettoPasseggero();
    void menu();
    int numeroBigliettiPasseggero();
-   int contaBiglietti();
+   void contaBiglietti();
    int numeroBiglietti;
 
 
