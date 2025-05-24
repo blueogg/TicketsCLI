@@ -2,9 +2,15 @@
 #define lunghezza_ora 5
 #define lunghezza_luogo 30
 #define lunghezza_nome 15
-#define lunghezza_cognome
+#define lunghezza_cognome 15
 
+    typedef enum{
 
+    READ = 1,
+    WRITE,
+    FULL
+
+    }ACCESS;
 
     typedef struct{
 
@@ -42,10 +48,11 @@
 
     }bigliettoPasseggero;
 
-   void creaBigliettoPasseggero();
+   FILE* ticketsPassenger(ACCESS _ACCESS);
    void menu();
-   int numeroBigliettiPasseggero();
-   void contaBiglietti();
-   int numeroBiglietti;
+   void creaBigliettoPasseggero();
+   int contaBigliettiPasseggero();
+   int contaBigliettiTotali();
+   void nomiBigliettiPasseggero();
 
 

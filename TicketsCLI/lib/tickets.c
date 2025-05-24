@@ -2,6 +2,23 @@
 #include "../headers/tickets.h"
 //In questo file definiamo l'implementazione delle funzioni.
 
+FILE* ticketsPassenger(ACCESS _ACCESS){
+FILE* fPtr = NULL;
+switch(_ACCESS){
+case 1:
+    fPtr = fopen("data/ticketsPassengers.bin", "r");
+    return fPtr;
+    break;
+case 2:
+    fPtr = fopen("data/ticketsPassengers.bin", "ab");
+    break;
+case 3:
+    fPtr = fopen("data/ticketsPassengers.bin", "ab+");
+    return fPtr;
+    break;
+}
+return fPtr;
+}
 
 void menu(){
     printf("\n%s:\n\n%s\n%s\n\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto passeggero", "2 - Conta numero dei biglietti");
@@ -11,7 +28,7 @@ void menu(){
         creaBigliettoPasseggero();
         break;
     case '2':
-        contaBiglietti();
+        nomiBigliettiPasseggero();
         break;
     }
     }
@@ -25,13 +42,11 @@ void creaBigliettoPasseggero(){
     rotta arrivo;
 
 //INPUT
-    puts("");
-    printf("%s: \n", "Inserisci nome e cognome del passeggero");
+    printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
     scanf("%s%s", _passeggero.nome, _passeggero.cognome);
-    puts("");
-    printf("%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
+    printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
     scanf("%s%s%s", partenza.luogo, partenza.data, partenza.ora);
-    printf("%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
+    printf("\n%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
     scanf("%s%s%s", arrivo.luogo, arrivo.data, arrivo.ora);
 
 //BIGLIETTO
@@ -42,41 +57,57 @@ void creaBigliettoPasseggero(){
     biglietto.utente = _passeggero;
 
 //SCRITTURA BIGLIETTO SU FILE
-
-    FILE* fPtr = NULL;
-    fPtr = fopen("data/ticketsPassengers.bin", "ab+"); // Niente fPtr == NULL check perchè ab+ non ritorna mai NULL (crea il file se non esiste)
+    int check = 0;
+    FILE* fPtr = ticketsPassenger(WRITE);
     if(fPtr != NULL){
-    fwrite(&biglietto, sizeof(biglietto), 1, fPtr);
+    check = fwrite(&biglietto, sizeof(biglietto), 1, fPtr);
+    if(check != 0){
     puts("Biglietto creato correttamente");
+    }else { puts("Errore nella creazione del biglietto"); }
     fclose(fPtr);
     menu();
     }
     else {
-        puts("Operazione fallita");
-        puts("");
+        puts("Impossibile aprire il file");
         menu();
     }
 }
 
-void contaBiglietti(){
+int contaBigliettiTotali(){
 
-int a = numeroBigliettiPasseggero();
+int a = contaBigliettiPasseggero();
 int b = 0; // Biglietti macchina ancora da creare
-numeroBiglietti = a + b;
-printf("Numero totale dei biglietti: %i", numeroBiglietti);
-menu();
+return a+b;
 }
 
-int numeroBigliettiPasseggero(){
-
+int contaBigliettiPasseggero(){
 int count = 0;
 bigliettoPasseggero biglietto;
-
-    FILE* fPass; // biglietti passeggeri
-    fPass = fopen("data/ticketsPassengers.bin", "r+"); // Biglietti macchina
+    FILE* fPass = ticketsPassenger(READ);
+    if(fPass != NULL){
     while(fread(&biglietto, sizeof(biglietto), 1, fPass)){
         count++;
     }
+    }else { puts("Impossibile aprire il file"); }
+    fclose(fPass);
     return count;
+}
 
+void nomiBigliettiPasseggero(){
+    bigliettoPasseggero biglietto;
+    FILE* fPass = ticketsPassenger(READ);
+    int a = contaBigliettiPasseggero();
+    if(fPass != NULL){
+        if(a != 0){
+
+        printf("\n%s\n", "Lista dei nomi biglietti passeggero:");
+        for(int i = 0; i < a; i++)
+            {
+        fread(&biglietto, sizeof(biglietto), 1, fPass);
+        printf("%s%i: %s %s\n", "Utente", i+1, biglietto.utente.nome, biglietto.utente.cognome);
+            }
+        } else {puts("Nessun biglietto trovato");}
+
+    }
+    menu();
 }
