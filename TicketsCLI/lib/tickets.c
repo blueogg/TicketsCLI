@@ -105,6 +105,7 @@ void nomiBigliettiPasseggero(){
             {
         fread(&biglietto, sizeof(biglietto), 1, fPass);
         printf("%s%i: %s %s\n", "Utente", i+1, biglietto.utente.nome, biglietto.utente.cognome);
+        fclose(fPass);
             }
         } else {puts("Nessun biglietto trovato");}
 
