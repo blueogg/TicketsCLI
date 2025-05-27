@@ -30,6 +30,8 @@ void menu(){
     case '2':
         nomiBigliettiPasseggero();
         break;
+    default:
+        main();
     }
     }
 }
