@@ -48,11 +48,10 @@
 
     }bigliettoPasseggero;
 
-   FILE* ticketsPassenger(ACCESS _ACCESS);
+   FILE* ticketsPassenger(ACCESS _ACCESS); // Restituisce FILE* per i passeggeri
    void menu();
    void creaBigliettoPasseggero();
    int contaBigliettiPasseggero();
    int contaBigliettiTotali();
    void nomiBigliettiPasseggero();
-
 

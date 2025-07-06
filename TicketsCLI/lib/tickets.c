@@ -43,11 +43,11 @@ void creaBigliettoPasseggero(){
 
 //INPUT
     printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
-    scanf("%s%s", _passeggero.nome, _passeggero.cognome);
+    scanf_s("%15s%15s", _passeggero.nome, _passeggero.cognome);
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
-    scanf("%s%s%s", partenza.luogo, partenza.data, partenza.ora);
+    scanf_s("%30s%11s%6s", partenza.luogo, partenza.data, partenza.ora);
     printf("\n%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
-    scanf("%s%s%s", arrivo.luogo, arrivo.data, arrivo.ora);
+    scanf_s("%30s%11s%6s", arrivo.luogo, arrivo.data, arrivo.ora);
 
 //BIGLIETTO
 
@@ -64,8 +64,8 @@ void creaBigliettoPasseggero(){
     if(check != 0){
     puts("Biglietto creato correttamente");
     }else { puts("Errore nella creazione del biglietto"); }
-    fclose(fPtr);
     menu();
+    fclose(fPtr);
     }
     else {
         puts("Impossibile aprire il file");
@@ -88,12 +88,15 @@ bigliettoPasseggero biglietto;
     while(fread(&biglietto, sizeof(biglietto), 1, fPass)){
         count++;
     }
-    }else { puts("Impossibile aprire il file"); }
     fclose(fPass);
+    }else { puts("Impossibile aprire il file"); }
+
     return count;
 }
 
 void nomiBigliettiPasseggero(){
+
+
     bigliettoPasseggero biglietto;
     FILE* fPass = ticketsPassenger(READ);
     int a = contaBigliettiPasseggero();
@@ -105,10 +108,17 @@ void nomiBigliettiPasseggero(){
             {
         fread(&biglietto, sizeof(biglietto), 1, fPass);
         printf("%s%i: %s %s\n", "Utente", i+1, biglietto.utente.nome, biglietto.utente.cognome);
-        fclose(fPass);
             }
+        fclose(fPass);
         } else {puts("Nessun biglietto trovato");}
 
     }
     menu();
+}
+
+void passeggeriPerRotta(){
+
+
+
+
 }
