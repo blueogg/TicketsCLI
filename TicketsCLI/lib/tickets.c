@@ -318,7 +318,7 @@ printf("\n%s\n", "Passeggeri biglietto macchina");
 fclose(fPtr2);
 }
 
-int guadagnoPerGiorno(){
+int guadagnoPerGiorno(){ // DA SVOLGERE ANCORA (INSIEME A TANTE ALTRE FUNZIONI DI QUESTO TIPO COME LISTA PASSEGGERI PER ARRIVO ETC)
 
 
 
