@@ -40,8 +40,8 @@ return fPtr;
 
 void controlloBuffer(){
 int a = 0;
-int b;
-while ((b = getchar()) != '\n' && b != EOF) {
+int c;
+while ((c = getchar()) != '\n' && c != EOF) {
 
         a = 1;
         }
@@ -72,7 +72,7 @@ case 4:
     passeggeriPerLuogoPartenza();
     break;
 case 5:
-    printf("%s%i", "Guadagno totale dell'agenzia: ", guadagnoTotale());
+    printf("%s%i", "Guadagno totale dell'agenzia: $", guadagnoTotale());
     break;
     default:
     break;
@@ -93,7 +93,7 @@ void creaBigliettoPasseggero(){
     scanf("%30s%11s%6s", partenza.luogo, partenza.data, partenza.ora);
     controlloBuffer();
     controlloDati(partenza.luogo, partenza.data, partenza.ora);
-    printf("\n%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
+    printf("\n%s:\n", "Inserisci luogo, data (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
     scanf("%30s%11s%6s", arrivo.luogo, arrivo.data, arrivo.ora);
     controlloBuffer();
     controlloDati(arrivo.luogo, arrivo.data, arrivo.ora);
@@ -120,16 +120,17 @@ void creaBigliettoPasseggero(){
 }
 
 void creaBigliettoMacchina(){
-    int a;
+    int numeroPasseggeri;
     int dimensioniAuto;
     node* head;
+    node* temporaneo = head;
     bigliettoMacchina biglietto;
     rotta partenza;
     rotta arrivo;
 //INPUT
     printf("%s\n", "Quanti passeggeri nell'auto?");
-    scanf("%i", &a);
-    head = initListaPasseggeri(a);
+    scanf("%i", &numeroPasseggeri);
+    head = initListaPasseggeri(numeroPasseggeri);
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
     scanf("%30s%11s%6s", partenza.luogo, partenza.data,partenza.ora);
     controlloBuffer();
@@ -143,23 +144,21 @@ void creaBigliettoMacchina(){
 //BIGLIETTO
     biglietto.partenza = partenza;
     biglietto.arrivo = arrivo;
-    biglietto.prezzo = 15 * a + 5; // Numero di passeggeri * 15 + prezzo 5 euro per la macchina.
+    biglietto.prezzo = 15 * numeroPasseggeri + 5; // Numero di passeggeri * 15 + prezzo 5 euro per la macchina.
     biglietto.lunghezza_auto = dimensioniAuto;
     biglietto.head = head;
 //SCRITTURA BIGLIETTO SU FILE
-    int check = 0;
     FILE* fPtr = ticketsCar(WRITE);
     if(fPtr != NULL){
-    fwrite(&a, sizeof(int), 1, fPtr); // INSERISCE NUMERO DI ELEMENTI DELLA LISTA PRIMA DELLA STRUCT
+    fwrite(&numeroPasseggeri, sizeof(int), 1, fPtr); // INSERISCE NUMERO DI ELEMENTI DELLA LISTA PRIMA DELLA STRUCT
     fwrite(&(biglietto.partenza), sizeof(rotta), 1, fPtr);
     fwrite(&(biglietto.arrivo), sizeof(rotta), 1, fPtr);
     fwrite(&(biglietto.prezzo), sizeof(int), 1, fPtr);
     fwrite(&(biglietto.lunghezza_auto), sizeof(int), 1, fPtr);
-    node* temp = head;
-    if(temp != NULL){
-    while (temp) {
-        fwrite(&(temp->_passeggero), sizeof(passeggero), 1, fPtr);
-        temp = temp->next;
+    if(temporaneo != NULL){
+    while (temporaneo) {
+        fwrite(&(temporaneo->_passeggero), sizeof(passeggero), 1, fPtr);
+        temporaneo = temporaneo->next;
                  }
     fclose(fPtr);
     menu();
@@ -177,44 +176,44 @@ return a+b;
 }
 
 int contaBigliettiPasseggero(){
-int count = 0;
+int contatore = 0;
 bigliettoPasseggero biglietto;
-    FILE* fPass = ticketsPassenger(READ);
-    if(fPass != NULL){
-    while(fread(&biglietto, sizeof(biglietto), 1, fPass)){
-        count++;
+    FILE* fPtr = ticketsPassenger(READ);
+    if(fPtr != NULL){
+    while(fread(&biglietto, sizeof(biglietto), 1, fPtr)){
+        contatore++;
             }
-    fclose(fPass);
+    fclose(fPtr);
     }else { puts("Impossibile aprire il file"); }
 
-    return count;
+    return contatore;
 }
 
 int contaBigliettiMacchina(){
-int temp;
-int count = 0;
+int temporaneo;
+int contatore  = 0;
 FILE* fPtr = ticketsCar(READ);
 if(fPtr != NULL){
-while(fread(&temp, sizeof(int), 1, fPtr) == 1){
-    count++;
-    fseek(fPtr, sizeof(rotta) * 2 + sizeof(int) * 2 + sizeof(passeggero) * temp, SEEK_CUR);
+while(fread(&temporaneo, sizeof(int), 1, fPtr) == 1){
+    contatore++;
+    fseek(fPtr, sizeof(rotta) * 2 + sizeof(int) * 2 + sizeof(passeggero) * temporaneo, SEEK_CUR);
                 }
 }else {puts("Errore nell'apertura del file"); menu();}
-return count;
+return contatore;
 }
 
 void nomiBigliettiPasseggero(){
     bigliettoPasseggero biglietto;
-    FILE* fPass = ticketsPassenger(READ);
-    int a = contaBigliettiPasseggero();
-    if(fPass != NULL){
-        if(a != 0){
+    FILE* fPtr = ticketsPassenger(READ);
+    int numeroBigliettiPasseggero = contaBigliettiPasseggero();
+    if(fPtr != NULL){
+        if(numeroBigliettiPasseggero != 0){
         printf("\n%s\n", "Lista dei nomi biglietti passeggero:");
-        for(int i = 0; i < a; i++){
-        fread(&biglietto, sizeof(biglietto), 1, fPass);
+        for(int i = 0; i < numeroBigliettiPasseggero; i++){
+        fread(&biglietto, sizeof(biglietto), 1, fPtr);
         printf("%s%i: %s %s\n", "Utente", i+1, biglietto.utente.nome, biglietto.utente.cognome);
                     }
-        fclose(fPass);
+        fclose(fPtr);
         } else {puts("Nessun biglietto trovato");}
                       }
     menu();
@@ -288,7 +287,6 @@ check = 0;
             } else { break; }
         }
         if(check == 1){
-            puts("a");
             } else { printf("\n%s\t%s\n", _bigliettoPasseggero.utente.nome, _bigliettoPasseggero.utente.cognome); }
             }
 fclose(fPtr1);
@@ -336,59 +334,55 @@ void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data],char o
     j++;
     }
 
-    char* temp;
-    int val;
+    char* temporaneo;
+    int valore;
     int i = 0;
-    char* string = malloc(sizeof(lunghezza_data));
-    string = strtok(data, "-");
-    while(string != NULL){
-    val = strtol(string, &temp, 10);
+    char* stringa = malloc(sizeof(lunghezza_data));
+    stringa = strtok(data, "-");
+    while(stringa != NULL){
+    valore = strtol(stringa, &temporaneo, 10);
     if(i == 0){
-            if(val < 1 || val > 31){
-            printf("%i\n", val);
+            if(valore < 1 || valore > 31){
             printf("%s\n", "Giorno non corretto, operazione annullata");
             menu();
         }
     }
     if(i == 1){
-        if(val <1 || val > 12){
+        if(valore <1 || valore > 12){
             printf("%s\n", "Mese non corretto, operazione annullata");
             menu();
         }
     }
     if(i == 2){
-        if(val <2025 || val > 2030){
-            printf("%i\n", val);
+        if(valore <2025 || valore > 2030){
             printf("%s\n", "Anno non corretto, operazione annullata");
             menu();
             }
         }
-    string = strtok(NULL, "-");
+    stringa = strtok(NULL, "-");
     i++;
     }
-    free(string);
-    string = malloc(sizeof(lunghezza_ora));
-    string = strtok(ora,"-");
+    free(stringa);
+    stringa = malloc(sizeof(lunghezza_ora));
+    stringa = strtok(ora,"-");
     i = 0;
-    while(string != NULL){
-    val = strtol(string, &temp, 10);
+    while(stringa != NULL){
+    valore = strtol(stringa, &temporaneo, 10);
     if(i == 0){
-            if(val < 0 || val > 24){
-            printf("%i\n", val);
+            if(valore < 0 || valore > 24){
             printf("%s\n", "Ora non corretta, operazione annullata");
             menu();
         }
     }
     if(i == 1){
-        if(val < 0 || val > 59){
-            printf("%i", val);
+        if(valore < 0 || valore > 59){
             printf("%s\n", "Ora non corretta, operazione annullata");
             menu();
         }
         }
-    string = strtok(NULL, "-");
+    stringa = strtok(NULL, "-");
     i++;
         }
-    free(string);
-    free(temp);
+    free(stringa);
+    free(temporaneo);
     }

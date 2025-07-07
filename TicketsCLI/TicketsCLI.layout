@@ -2,30 +2,32 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="headers\tickets.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="headers\tickets.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1145" topLine="21" />
+			<Cursor1 position="1523" topLine="3" />
 		</Cursor>
 		<Folding>
+			<Collapse line="6" />
+			<Collapse line="14" />
+			<Collapse line="22" />
+			<Collapse line="29" />
+			<Collapse line="36" />
 			<Collapse line="46" />
 		</Folding>
 	</File>
-	<File name="lib\tickets.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="6" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3455" topLine="48" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
-		<Folding>
-			<Collapse line="4" />
-			<Collapse line="6" />
-			<Collapse line="22" />
-			<Collapse line="75" />
-			<Collapse line="82" />
-			<Collapse line="96" />
-		</Folding>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="data\ticketsCar.bin" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="66" topLine="0" />
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="lib\tickets.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1781" topLine="356" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

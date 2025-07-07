@@ -31,8 +31,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="data/ticketsCar.txt" />
-		<Unit filename="data/ticketsPassengers.txt" />
+		<Unit filename="data/ticketsCar.bin" />
+		<Unit filename="data/ticketsPassengers.bin" />
 		<Unit filename="headers/tickets.h" />
 		<Unit filename="lib/tickets.c">
 			<Option compilerVar="CC" />
