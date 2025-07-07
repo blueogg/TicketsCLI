@@ -27,13 +27,20 @@
 
     }passeggero;
 
+    typedef struct {
+
+    passeggero _passeggero;
+    struct node* next;
+        }node;
+
+
     typedef struct{
 
         rotta partenza;
         rotta arrivo;
         int prezzo;
         int lunghezza_auto;
-        // lista passeggeri
+        struct node* head;
 
     }bigliettoMacchina;
 
@@ -48,10 +55,17 @@
 
     }bigliettoPasseggero;
 
-   FILE* ticketsPassenger(ACCESS _ACCESS); // Restituisce FILE* per i passeggeri
+   FILE* ticketsPassenger(ACCESS _ACCESS); // Restituisce FILE* per i passeggeri.
+   FILE* ticketsCar(ACCESS _ACCESS);
+   void controlloBuffer();
    void menu();
    void creaBigliettoPasseggero();
    int contaBigliettiPasseggero();
+   int contaBigliettiMacchina();
    int contaBigliettiTotali();
    void nomiBigliettiPasseggero();
+   node* initListaPasseggeri(int numeroPasseggeri);
+   void aggiungiNodi(node** head, int numeroNodi);
+   void leggiLista();
+
 
