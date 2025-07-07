@@ -59,6 +59,7 @@
    FILE* ticketsCar(ACCESS _ACCESS);
    void controlloBuffer();
    void menu();
+   int guadagnoTotale();
    void creaBigliettoPasseggero();
    int contaBigliettiPasseggero();
    int contaBigliettiMacchina();
@@ -67,5 +68,6 @@
    node* initListaPasseggeri(int numeroPasseggeri);
    void aggiungiNodi(node** head, int numeroNodi);
    void leggiLista();
+   int guadagnoPerGiorno();
 
 

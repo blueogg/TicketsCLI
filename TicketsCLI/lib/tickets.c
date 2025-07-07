@@ -53,8 +53,9 @@ if (a) {
 }
 
 void menu(){
-    printf("\n%s:\n\n%s\n%s\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto Passeggero", "2 - Crea biglietto Macchina");
-    printf("%s\n\n", "3 - Conta Biglietti totali");
+    while(1){
+    printf("\n\n%s:\n\n%s\n%s\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto Passeggero Singolo", "2 - Crea biglietto passeggeri multipli con macchina");
+    printf("%s\n%s\n\%s\n\n", "3 - Conta Biglietti totali", "4 - Elenco passeggeri per luogo di partenza", "5 - Guadagno totale");
     int scelta;
     scanf_s("%i", &scelta);
     switch(scelta){
@@ -66,15 +67,20 @@ case 2:
     creaBigliettoMacchina();
     break;
 case 3:
-    printf("%i", contaBigliettiTotali());
-    main();
-    }
-
-
-
-
-
+    printf("%s%i","Il numero totale di biglietti registrati al momento e': ", contaBigliettiTotali());
+    break;
+case 4:
+    passeggeriPerLuogoPartenza();
+    break;
+case 5:
+    printf("%s%i", "Guadagno totale dell'agenzia: ", guadagnoTotale());
+    break;
+    default:
+    break;
 }
+    }
+}
+
 
 void creaBigliettoPasseggero(){
 
@@ -98,7 +104,7 @@ void creaBigliettoPasseggero(){
 
     biglietto.partenza = partenza;
     biglietto.arrivo = arrivo;
-    biglietto.prezzo = 5;
+    biglietto.prezzo = 15;
     biglietto.utente = _passeggero;
 
 //SCRITTURA BIGLIETTO SU FILE
@@ -148,7 +154,7 @@ void creaBigliettoMacchina(){
 
     biglietto.partenza = partenza;
     biglietto.arrivo = arrivo;
-    biglietto.prezzo = 25;
+    biglietto.prezzo = 15 * a + 5; // Numero di passeggeri * 15 + prezzo 5 euro per la macchina.
     biglietto.lunghezza_auto = dimensioniAuto;
     biglietto.head = head;
 
@@ -243,7 +249,6 @@ aggiungiNodi(&head, numeroPasseggeri);
 return head;
 }
 
-
  void aggiungiNodi(node** head, int numeroNodi) {
 
     passeggero _passeggero;
@@ -273,3 +278,102 @@ return head;
     }
     return;
 }
+
+int guadagnoTotale(){
+int totale = 0;
+int valore = 0;
+int temp = 0;
+int a = contaBigliettiMacchina();
+int b = contaBigliettiPasseggero();
+FILE* fPtr = ticketsCar(READ);
+if(fPtr != NULL){
+
+    while(fread(&temp, sizeof(int),1, fPtr) == 1){
+    fseek(fPtr, sizeof(rotta) * 2, SEEK_CUR);
+    fread(&valore, sizeof(int), 1, fPtr);
+    totale += valore;
+    fseek(fPtr, sizeof(int) + sizeof(passeggero) * temp, SEEK_CUR);
+
+    }
+    return totale + 15 * contaBigliettiPasseggero();
+}
+else {
+    puts("Errore nell'apertura del file");
+}
+}
+
+void passeggeriPerLuogoPartenza(){
+
+passeggero _passeggero;
+rotta partenza;
+bigliettoMacchina _bigliettoMacchina;
+bigliettoPasseggero _bigliettoPasseggero;
+printf("\n%s\n", "Inserisci luogo di partenza per cui elencare i passeggeri:");
+scanf_s("%30s", partenza.luogo, 30);
+printf("\n%s\n", "Lista passeggeri per il luogo di partenza selezionato: ");
+puts("Passeggeri biglietto singolo");
+//Biglietti Passeggero
+int check;
+FILE* fPtr1 = ticketsPassenger(READ);
+while(fread(&_bigliettoPasseggero, sizeof(bigliettoPasseggero), 1, fPtr1) == 1){
+check = 0;
+        for(int i = 0; i<lunghezza_luogo; i++){
+            if(partenza.luogo[i] != '\0'){
+                if(tolower(partenza.luogo[i]) == tolower(_bigliettoPasseggero.partenza.luogo[i])){
+                } else { check = 1;}
+            } else { break; }
+        }
+        if(check == 1){
+            puts("a");
+            } else {
+
+            printf("\n%s\t%s\n", _bigliettoPasseggero.utente.nome, _bigliettoPasseggero.utente.cognome);
+            }
+
+      }
+            fclose(fPtr1);
+
+//Biglietti Macchina
+
+printf("\n%s\n", "Passeggeri biglietto macchina");
+    int num = 0;
+    FILE* fPtr2 = ticketsCar(READ);
+    while(fread(&num, sizeof(int),1, fPtr2) == 1){
+
+        fread(&_bigliettoMacchina.partenza, sizeof(rotta), 1, fPtr2);
+        check = 0;
+        for(int i = 0; i<lunghezza_luogo; i++){
+            if(partenza.luogo[i] != '\0'){
+                if(tolower(partenza.luogo[i]) == tolower(_bigliettoMacchina.partenza.luogo[i])){
+                } else { check = 1;}
+            } else { break; }
+        }
+        if(check == 1){
+
+            } else {
+            fseek(fPtr2, sizeof(rotta) + sizeof(int) * 2, SEEK_CUR);
+            for(int i = 0; i < num; i++){
+
+            fread(&_passeggero, sizeof(passeggero), 1, fPtr2);
+            printf("\n%s\t%s\n", _passeggero.nome, _passeggero.cognome);
+            }
+            }
+
+
+
+    }
+    fclose(fPtr2);
+}
+
+int guadagnoPerGiorno(){
+
+
+
+
+
+
+
+
+}
+
+
