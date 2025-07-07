@@ -67,7 +67,10 @@
    void nomiBigliettiPasseggero();
    node* initListaPasseggeri(int numeroPasseggeri);
    void aggiungiNodi(node** head, int numeroNodi);
-   void leggiLista();
    int guadagnoPerGiorno();
+   void passeggeriPerLuogoPartenza();
+   void passeggeriPerLuogoArrivo();
+   void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data],char ora[lunghezza_ora]);
+
 
 

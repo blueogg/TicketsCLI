@@ -57,7 +57,7 @@ void menu(){
     printf("\n\n%s:\n\n%s\n%s\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto Passeggero Singolo", "2 - Crea biglietto passeggeri multipli con macchina");
     printf("%s\n%s\n\%s\n\n", "3 - Conta Biglietti totali", "4 - Elenco passeggeri per luogo di partenza", "5 - Guadagno totale");
     int scelta;
-    scanf_s("%i", &scelta);
+    scanf("%i", &scelta);
     switch(scelta){
 case 1:
     creaBigliettoPasseggero();
@@ -80,7 +80,6 @@ case 5:
     }
 }
 
-
 void creaBigliettoPasseggero(){
     bigliettoPasseggero biglietto;
     passeggero _passeggero;
@@ -88,14 +87,16 @@ void creaBigliettoPasseggero(){
     rotta arrivo;
 //INPUT
     printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
-    scanf_s("%15s%15s", _passeggero.nome,15, _passeggero.cognome,15);
+    scanf("%15s%15s", _passeggero.nome, _passeggero.cognome);
     controlloBuffer();
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
-    scanf_s("%30s%11s%6s", partenza.luogo, 30, partenza.data, 11, partenza.ora, 6);
+    scanf("%30s%11s%6s", partenza.luogo, partenza.data, partenza.ora);
     controlloBuffer();
+    controlloDati(partenza.luogo, partenza.data, partenza.ora);
     printf("\n%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
-    scanf_s("%30s%11s%6s", arrivo.luogo, 30, arrivo.data, 11, arrivo.ora, 6);
+    scanf("%30s%11s%6s", arrivo.luogo, arrivo.data, arrivo.ora);
     controlloBuffer();
+    controlloDati(arrivo.luogo, arrivo.data, arrivo.ora);
 //BIGLIETTO
     biglietto.partenza = partenza;
     biglietto.arrivo = arrivo;
@@ -127,16 +128,18 @@ void creaBigliettoMacchina(){
     rotta arrivo;
 //INPUT
     printf("%s\n", "Quanti passeggeri nell'auto?");
-    scanf_s("%i", &a);
+    scanf("%i", &a);
     head = initListaPasseggeri(a);
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
-    scanf_s("%30s%11s%6s", partenza.luogo,30, partenza.data, 11, partenza.ora, 6);
+    scanf("%30s%11s%6s", partenza.luogo, partenza.data,partenza.ora);
     controlloBuffer();
+    controlloDati(partenza.luogo, partenza.data, partenza.ora);
     printf("\n%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
-    scanf_s("%30s%11s%6s", arrivo.luogo,30, arrivo.data,11, arrivo.ora, 6);
+    scanf("%30s%11s%6s", arrivo.luogo, arrivo.data, arrivo.ora);
     controlloBuffer();
+    controlloDati(arrivo.luogo, arrivo.data, arrivo.ora);
     printf("\n%s\n", "Inserisci dimensioni auto (m)");
-    scanf_s("%i", &dimensioniAuto);
+    scanf("%i", &dimensioniAuto);
 //BIGLIETTO
     biglietto.partenza = partenza;
     biglietto.arrivo = arrivo;
@@ -226,27 +229,21 @@ return head;
  void aggiungiNodi(node** head, int numeroNodi) {
     passeggero _passeggero;
     for (int i = 0; i < numeroNodi; i++) {
-        node* nuovo = malloc(sizeof(node));
-        if (nuovo == NULL) {
-            printf("Errore di allocazione memoria.\n");
-            menu();
-                            }
+    node* nuovo = malloc(sizeof(node));
     printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
-    scanf_s("%15s%15s", _passeggero.nome, 16, _passeggero.cognome, 16);
+    scanf("%15s%15s", _passeggero.nome, _passeggero.cognome);
     controlloBuffer();
     nuovo->_passeggero = _passeggero;
     nuovo->next = NULL;
         if (*head == NULL) {
-            // La lista è vuota, questo è il primo nodo
             *head = nuovo;
         } else {
-            // Scorri fino all'ultimo nodo
             node* last = *head;
             while (last->next != NULL) {
                 last = last->next;
             }
             last->next = nuovo;
-                }
+            }
     }
     return;
 }
@@ -276,7 +273,7 @@ rotta partenza;
 bigliettoMacchina _bigliettoMacchina;
 bigliettoPasseggero _bigliettoPasseggero;
 printf("\n%s\n", "Inserisci luogo di partenza per cui elencare i passeggeri:");
-scanf_s("%30s", partenza.luogo, 30);
+scanf("%30s", partenza.luogo);
 printf("\n%s\n", "Lista passeggeri per il luogo di partenza selezionato: ");
 puts("Passeggeri biglietto singolo");
 //Biglietti Passeggero
@@ -327,9 +324,71 @@ int guadagnoPerGiorno(){
 
 
 
-
-
-
 }
 
+void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data],char ora[lunghezza_ora]){
+    int j = 0;
+    while(luogo[j] != '\0'){
+    if(!isalpha(luogo[j])){
+        printf("Il luogo di destinazione/partenza e' sbagliato, operazione annullata");
+        menu();
+    }
+    j++;
+    }
 
+    char* temp;
+    int val;
+    int i = 0;
+    char* string = malloc(sizeof(lunghezza_data));
+    string = strtok(data, "-");
+    while(string != NULL){
+    val = strtol(string, &temp, 10);
+    if(i == 0){
+            if(val < 1 || val > 31){
+            printf("%i\n", val);
+            printf("%s\n", "Giorno non corretto, operazione annullata");
+            menu();
+        }
+    }
+    if(i == 1){
+        if(val <1 || val > 12){
+            printf("%s\n", "Mese non corretto, operazione annullata");
+            menu();
+        }
+    }
+    if(i == 2){
+        if(val <2025 || val > 2030){
+            printf("%i\n", val);
+            printf("%s\n", "Anno non corretto, operazione annullata");
+            menu();
+            }
+        }
+    string = strtok(NULL, "-");
+    i++;
+    }
+    free(string);
+    string = malloc(sizeof(lunghezza_ora));
+    string = strtok(ora,"-");
+    i = 0;
+    while(string != NULL){
+    val = strtol(string, &temp, 10);
+    if(i == 0){
+            if(val < 0 || val > 24){
+            printf("%i\n", val);
+            printf("%s\n", "Ora non corretta, operazione annullata");
+            menu();
+        }
+    }
+    if(i == 1){
+        if(val < 0 || val > 59){
+            printf("%i", val);
+            printf("%s\n", "Ora non corretta, operazione annullata");
+            menu();
+        }
+        }
+    string = strtok(NULL, "-");
+    i++;
+        }
+    free(string);
+    free(temp);
+    }
