@@ -4,72 +4,70 @@
 #define lunghezza_nome 15
 #define lunghezza_cognome 15
 
-    typedef enum{
-
+typedef enum {
     READ = 1,
     WRITE,
     FULL
+} ACCESS;
 
-    }ACCESS;
-
-    typedef struct{
-
+typedef struct {
     char luogo[lunghezza_luogo];
     char data[lunghezza_data];
     char ora[lunghezza_ora];
+} rotta;
 
-    }rotta;
-
-    typedef struct{
-
+typedef struct {
     char nome[lunghezza_nome];
     char cognome[lunghezza_cognome];
+} passeggero;
 
-    }passeggero;
-
-    typedef struct {
-
+typedef struct node {
     passeggero _passeggero;
     struct node* next;
-        }node;
+} node;
 
+typedef struct {
+    rotta partenza;
+    rotta arrivo;
+    int prezzo;
+    int lunghezza_auto;
+    struct node* head;
+} bigliettoMacchina;
 
-    typedef struct{
+typedef struct {
+    rotta partenza;
+    rotta arrivo;
+    int prezzo;
+    passeggero utente;
+} bigliettoPasseggero;
 
-        rotta partenza;
-        rotta arrivo;
-        int prezzo;
-        int lunghezza_auto;
-        struct node* head;
+// Funzioni per la gestione dei file
+FILE* ticketsPassenger(ACCESS _ACCESS);
+FILE* ticketsCar(ACCESS _ACCESS);
 
-    }bigliettoMacchina;
+// Funzioni per il controllo input
+void controlloBuffer();
+void controlloDatiSintattico(char luogo[lunghezza_luogo], char data[lunghezza_data], char ora[lunghezza_ora]);
+void controlloDataSemantico(char data1[lunghezza_data], char data2[lunghezza_data]);
+void controlloNome(passeggero _passeggero);
 
-    typedef struct{
+// Funzioni per la creazione dei biglietti
+void creaBigliettoPasseggero();
+void creaBigliettoMacchina();
+node* initListaPasseggeri(int numeroPasseggeri);
+void aggiungiNodi(node** head, int numeroNodi);
 
+// Funzioni per il conteggio
+int contaBigliettiPasseggero();
+int contaBigliettiMacchina();
+int contaBigliettiTotali();
 
-        rotta partenza;
-        rotta arrivo;
-        int prezzo;
-        passeggero utente;
+// Funzioni per i report
+int guadagnoTotale();
+int guadagnoPerGiorno();
+void passeggeriPerLuogoPartenza();
+void nomiBigliettiPasseggero();
 
-
-    }bigliettoPasseggero;
-
-   FILE* ticketsPassenger(ACCESS _ACCESS); // Restituisce FILE* per i passeggeri.
-   FILE* ticketsCar(ACCESS _ACCESS);
-   void controlloBuffer();
-   void menu();
-   int guadagnoTotale();
-   void creaBigliettoPasseggero();
-   int contaBigliettiPasseggero();
-   int contaBigliettiMacchina();
-   int contaBigliettiTotali();
-   void nomiBigliettiPasseggero();
-   node* initListaPasseggeri(int numeroPasseggeri);
-   void aggiungiNodi(node** head, int numeroNodi);
-   int guadagnoPerGiorno();
-   void passeggeriPerLuogoPartenza();
-   void passeggeriPerLuogoArrivo(); // da fare (?)
-   void controlloDatiSintattico(char luogo[lunghezza_luogo], char data[lunghezza_data],char ora[lunghezza_ora]);
-   void controlloDataSemantico(char data1[lunghezza_data], char data2[lunghezza_data]);
-   char* strtok_r(char *str, const char *delim, char **nextp) // Vedi commento in tickets.c
+// Funzioni di sistema
+void menu();
+char* strtok_r(char *str, const char *delim, char **nextp);

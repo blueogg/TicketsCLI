@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../headers/tickets.h"
 
-// Implementazione di strtok_r mancante in MinGW
+// Implementazione di strtok_r mancante in MinGW (https://stackoverflow.com/questions/12975022/strtok-r-for-mingw)
 char* strtok_r(char *str, const char *delim, char **nextp) {
     char *ret;
     if (str == NULL) { str = *nextp; }
@@ -137,6 +137,7 @@ void creaBigliettoMacchina() {
                 fwrite(&(temporaneo->_passeggero), sizeof(passeggero), 1, fPtr);
                 temporaneo = temporaneo->next;
             }
+        printf("%s\n", "Biglietto creato correttamente");
             fclose(fPtr);
             menu();
         }
