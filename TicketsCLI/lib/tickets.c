@@ -2,6 +2,45 @@
 #include "../headers/tickets.h"
 //In questo file definiamo l'implementazione delle funzioni.
 
+
+//FUNZIONE STRTOK_R MANCANTE IN MINGW, AGGIUNTA (https://stackoverflow.com/questions/12975022/strtok-r-for-mingw) PERCHE' NECESSARIA ALL'IMPLEMENTAZIONE DI ALCUNE FUNZIONI (CONTROLLO DATA SEMANTICO)
+
+char* strtok_r(
+    char *str,
+    const char *delim,
+    char **nextp)
+{
+    char *ret;
+
+    if (str == NULL)
+    {
+        str = *nextp;
+    }
+
+    str += strspn(str, delim);
+
+    if (*str == '\0')
+    {
+        return NULL;
+    }
+
+    ret = str;
+
+    str += strcspn(str, delim);
+
+    if (*str)
+    {
+        *str++ = '\0';
+    }
+
+    *nextp = str;
+
+    return ret;
+}
+
+
+
+
 FILE* ticketsPassenger(ACCESS _ACCESS){
 FILE* fPtr = NULL;
 switch(_ACCESS){
@@ -95,11 +134,11 @@ void creaBigliettoPasseggero(){
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
     scanf("%30s%11s%6s", partenza.luogo, partenza.data, partenza.ora);
     controlloBuffer();
-    controlloDati(partenza.luogo, partenza.data, partenza.ora);
+    controlloDatiSintattico(partenza.luogo, partenza.data, partenza.ora);
     printf("\n%s:\n", "Inserisci luogo, data (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
     scanf("%30s%11s%6s", arrivo.luogo, arrivo.data, arrivo.ora);
     controlloBuffer();
-    controlloDati(arrivo.luogo, arrivo.data, arrivo.ora);
+    controlloDatiSintattico(arrivo.luogo, arrivo.data, arrivo.ora);
 //BIGLIETTO
     biglietto.partenza = partenza;
     biglietto.arrivo = arrivo;
@@ -137,11 +176,12 @@ void creaBigliettoMacchina(){
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
     scanf("%30s%11s%6s", partenza.luogo, partenza.data,partenza.ora);
     controlloBuffer();
-    controlloDati(partenza.luogo, partenza.data, partenza.ora);
+    controlloDatiSintattico(partenza.luogo, partenza.data, partenza.ora);
     printf("\n%s:\n", "Inserisci luogo, dataa (dd-mm-yyyy)e ora (hh-mm) dell'arrivo");
     scanf("%30s%11s%6s", arrivo.luogo, arrivo.data, arrivo.ora);
     controlloBuffer();
-    controlloDati(arrivo.luogo, arrivo.data, arrivo.ora);
+    controlloDatiSintattico(arrivo.luogo, arrivo.data, arrivo.ora);
+    controlloDataSemantico(partenza.data, arrivo.data);
     printf("\n%s\n", "Inserisci dimensioni auto (m)");
     scanf("%i", &dimensioniAuto);
 //BIGLIETTO
@@ -371,7 +411,7 @@ return totale;
 }
 
 
-void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data], char ora[lunghezza_ora]){
+void controlloDatiSintattico(char luogo[lunghezza_luogo], char data[lunghezza_data], char ora[lunghezza_ora]){
     int j = 0;
     while(luogo[j] != '\0'){
         if(!isalpha(luogo[j])){
@@ -454,3 +494,56 @@ void controlloNome(passeggero _passeggero){
             j++;
     }
 }
+
+
+void controlloDataSemantico(char data1[lunghezza_data], char data2[lunghezza_data]){
+
+    char data_copia_1[lunghezza_data];
+    strcpy(data_copia_1, data1);
+    char data_copia_2[lunghezza_data];
+    strcpy(data_copia_2, data2);
+
+    char* stringa1;
+    char* stringa2;
+    char* temporaneo1;
+    char* temporaneo2;
+    char* savePtr1;
+    char* savePtr2;
+    int valore1, valore2;
+    int i = 0;
+    stringa1 = strtok_r(data_copia_1, "-", &savePtr1);
+    stringa2 = strtok_r(data_copia_2, "-", &savePtr2);
+    while(stringa1 != NULL && stringa2 != NULL){
+        valore1 = strtol(stringa1, &temporaneo1, 10);
+        valore2 = strtol(stringa2, &temporaneo2, 10);
+        if(i == 0){
+            if(valore1 > valore2){
+
+                printf("%s\n", "Giorno non corretto, operazione annullata");
+                menu();
+            }
+            if(valore2 - valore1 > 2){
+                printf("%s\n", "Il viaggio non puo' richiedere piu' di 2 giorni, operazione annullata");
+                menu();
+            }
+        }
+        if(i == 1){
+            if(valore2 - valore1 != 0){
+                printf("%\n%i\t%i\n", valore2, valore1);
+                printf("%s\n", "Mesi non coincidono, operazione annullata");
+                menu();
+            }
+        }
+        if(i == 2){
+            if(valore1 != valore2){
+                printf("%s\n", "Anni non coincidono, operazione annullata");
+                menu();
+            }
+        }
+
+        stringa1 = strtok_r(NULL, "-", &savePtr1);
+        stringa2 = strtok_r(NULL, "-", &savePtr2);
+        i++;
+    }
+    }
+
