@@ -74,6 +74,8 @@ case 4:
 case 5:
     printf("%s%i", "Guadagno totale dell'agenzia: $", guadagnoTotale());
     break;
+case 6:
+    printf("%s%i", "L'agenzia nel giorno selezionato ha guadagnato $", guadagnoPerGiorno());
     default:
     break;
         }
@@ -89,6 +91,7 @@ void creaBigliettoPasseggero(){
     printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
     scanf("%15s%15s", _passeggero.nome, _passeggero.cognome);
     controlloBuffer();
+    controlloNome(_passeggero);
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
     scanf("%30s%11s%6s", partenza.luogo, partenza.data, partenza.ora);
     controlloBuffer();
@@ -232,6 +235,7 @@ return head;
     printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
     scanf("%15s%15s", _passeggero.nome, _passeggero.cognome);
     controlloBuffer();
+    controlloNome(_passeggero);
     nuovo->_passeggero = _passeggero;
     nuovo->next = NULL;
         if (*head == NULL) {
@@ -318,70 +322,135 @@ fclose(fPtr2);
 
 int guadagnoPerGiorno(){ // DA SVOLGERE ANCORA (INSIEME A TANTE ALTRE FUNZIONI DI QUESTO TIPO COME LISTA PASSEGGERI PER ARRIVO ETC)
 
+int totale = 0;
+rotta partenza;
+bigliettoMacchina _bigliettoMacchina;
+bigliettoPasseggero _bigliettoPasseggero;
+printf("\n%s\n", "Inserisci data per cui calcolare il guadango:");
+scanf("%11s", partenza.data);
+int check = 0;
+int valore = 0;
+FILE* fPtr1 = ticketsPassenger(READ);
+while(fread(&_bigliettoPasseggero, sizeof(bigliettoPasseggero), 1, fPtr1) == 1){
+check = 0;
+        for(int i = 0; i<lunghezza_data; i++){
+            if(_bigliettoPasseggero.partenza.data[i] != '\0'){
+                if(tolower(partenza.data[i]) == tolower(_bigliettoPasseggero.partenza.data[i])){
+                } else { check = 1;}
+            } else { break; }
+        }
+        if(check == 1){
+            }
+            else { valore = _bigliettoPasseggero.prezzo; totale += valore;}
+            }
+fclose(fPtr1);
+//Biglietti Macchina
+    int num = 0;
+    FILE* fPtr2 = ticketsCar(READ);
+    while(fread(&num, sizeof(int),1, fPtr2) == 1){
+        fread(&_bigliettoMacchina.partenza, sizeof(rotta), 1, fPtr2);
+        check = 0;
+        for(int i = 0; i<lunghezza_data; i++){
+            if(_bigliettoMacchina.partenza.data[i] != '\0'){
+                if(tolower(partenza.data[i]) == tolower(_bigliettoMacchina.partenza.data[i])){
+                } else { check = 1;}
+            } else { break; }
+        }
+        if(check == 1){
+            } else {
+            fseek(fPtr2, sizeof(rotta), SEEK_CUR);
+            fread(&valore, sizeof(int), 1, fPtr2);
+            totale += valore;
+            fseek(fPtr2, sizeof(int) + sizeof(passeggero) * num, SEEK_CUR);
+                 }
+    }
+fclose(fPtr2);
 
-
-
+return totale;
 
 }
 
-void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data],char ora[lunghezza_ora]){
+
+void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data], char ora[lunghezza_ora]){
     int j = 0;
     while(luogo[j] != '\0'){
-    if(!isalpha(luogo[j])){
-        printf("Il luogo di destinazione/partenza e' sbagliato, operazione annullata");
-        menu();
+        if(!isalpha(luogo[j])){
+            printf("Il luogo di destinazione/partenza e' sbagliato, operazione annullata");
+            menu();
+        }
+        j++;
     }
-    j++;
-    }
+    char data_copia[lunghezza_data];
+    char ora_copia[lunghezza_ora];
+    strcpy(data_copia, data);
+    strcpy(ora_copia, ora);
 
-    char* temporaneo = malloc(sizeof(char));
+    char* stringa;
+    char* temporaneo;
     int valore;
     int i = 0;
-    char* stringa = malloc(sizeof(lunghezza_data));
-    stringa = strtok(data, "-");
+    stringa = strtok(data_copia, "-");
     while(stringa != NULL){
-    valore = strtol(stringa, &temporaneo, 10);
-    if(i == 0){
+        valore = strtol(stringa, &temporaneo, 10);
+        if(i == 0){
             if(valore < 1 || valore > 31){
-            printf("%s\n", "Giorno non corretto, operazione annullata");
-            menu();
-        }
-    }
-    if(i == 1){
-        if(valore <1 || valore > 12){
-            printf("%s\n", "Mese non corretto, operazione annullata");
-            menu();
-        }
-    }
-    if(i == 2){
-        if(valore <2025 || valore > 2030){
-            printf("%s\n", "Anno non corretto, operazione annullata");
-            menu();
+                printf("%s\n", "Giorno non corretto, operazione annullata");
+                menu();
             }
         }
-    stringa = strtok(NULL, "-");
-    i++;
+        if(i == 1){
+            if(valore < 1 || valore > 12){
+                printf("%s\n", "Mese non corretto, operazione annullata");
+                menu();
+            }
+        }
+        if(i == 2){
+            if(valore < 2025 || valore > 2030){
+                printf("%s\n", "Anno non corretto, operazione annullata");
+                menu();
+            }
+        }
+        stringa = strtok(NULL, "-");
+        i++;
     }
-    free(stringa);
-    stringa = malloc(sizeof(lunghezza_ora));
-    stringa = strtok(ora,"-");
+
     i = 0;
+    stringa = strtok(ora_copia, "-");
     while(stringa != NULL){
-    valore = strtol(stringa, &temporaneo, 10);
-    if(i == 0){
-            if(valore < 0 || valore > 24){
-            printf("%s\n", "Ora non corretta, operazione annullata");
+        valore = strtol(stringa, &temporaneo, 10);
+        if(i == 0){
+            if(valore < 0 || valore > 23){
+                printf("%s\n", "Ora non corretta, operazione annullata");
+                menu();
+            }
+        }
+        if(i == 1){
+            if(valore < 0 || valore > 59){
+                printf("%s\n", "Minuti non corretti, operazione annullata");
+                menu();
+            }
+        }
+        stringa = strtok(NULL, "-");
+        i++;
+    }
+}
+
+void controlloNome(passeggero _passeggero){
+    int j = 0;
+    while(_passeggero.nome[j] != '\0'){
+        if(!isalpha(_passeggero.nome[j])){
+            printf("Il nome e errato, operazione annullata");
             menu();
         }
+         j++;
     }
-    if(i == 1){
-        if(valore < 0 || valore > 59){
-            printf("%s\n", "Ora non corretta, operazione annullata");
+
+        j = 0;
+            while(_passeggero.cognome[j] != '\0'){
+        if(!isalpha(_passeggero.cognome[j])){
+            printf("Il cognome e errato, operazione annullata");
             menu();
         }
-        }
-    stringa = strtok(NULL, "-");
-    i++;
-        }
-    free(stringa);
+            j++;
     }
+}

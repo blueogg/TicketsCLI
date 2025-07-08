@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1751991068 source:c:\users\vic\projects\progettouni\ticketscli\lib\tickets.c
+1751994948 source:c:\users\vic\projects\progettouni\ticketscli\lib\tickets.c
 	<stdio.h>
 	"../headers/tickets.h"
 
