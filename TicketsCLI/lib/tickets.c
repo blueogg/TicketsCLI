@@ -123,7 +123,6 @@ void creaBigliettoMacchina(){
     int numeroPasseggeri;
     int dimensioniAuto;
     node* head;
-    node* temporaneo = head;
     bigliettoMacchina biglietto;
     rotta partenza;
     rotta arrivo;
@@ -131,6 +130,7 @@ void creaBigliettoMacchina(){
     printf("%s\n", "Quanti passeggeri nell'auto?");
     scanf("%i", &numeroPasseggeri);
     head = initListaPasseggeri(numeroPasseggeri);
+    node* temporaneo = head;
     printf("\n%s:\n", "Inserisci luogo, data(dd-mm-yyyy) e ora(hh-mm) della partenza");
     scanf("%30s%11s%6s", partenza.luogo, partenza.data,partenza.ora);
     controlloBuffer();
@@ -334,7 +334,7 @@ void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data],char o
     j++;
     }
 
-    char* temporaneo;
+    char* temporaneo = malloc(sizeof(char));
     int valore;
     int i = 0;
     char* stringa = malloc(sizeof(lunghezza_data));
@@ -384,5 +384,4 @@ void controlloDati(char luogo[lunghezza_luogo], char data[lunghezza_data],char o
     i++;
         }
     free(stringa);
-    free(temporaneo);
     }
