@@ -48,7 +48,7 @@ void controlloBuffer() {
 void menu() {
     while(1) {
         printf("\n\n%s:\n\n%s\n%s\n", "Seleziona operazione che vuoi eseguire", "1 - Crea biglietto Passeggero Singolo", "2 - Crea biglietto passeggeri multipli con macchina");
-        printf("%s\n%s\n\%s\n%s\n\n", "3 - Conta Biglietti totali", "4 - Elenco passeggeri per luogo di partenza", "5 - Guadagno totale", "6 - Guadagno per giorno");
+        printf("%s\n%s\n\%s\n%s\n%s\n\n", "3 - Conta Biglietti totali", "4 - Elenco passeggeri per luogo di partenza","5 - Elenco passeggeri per luogo di arrivo", "6 - Guadagno totale", "7 - Guadagno per giorno");
         int scelta;
         scanf("%i", &scelta);
         switch(scelta) {
@@ -56,8 +56,9 @@ void menu() {
             case 2: creaBigliettoMacchina(); break;
             case 3: printf("%s%i","Il numero totale di biglietti registrati al momento e': ", contaBigliettiTotali()); break;
             case 4: passeggeriPerLuogoPartenza(); break;
-            case 5: printf("%s%i", "Guadagno totale dell'agenzia: $", guadagnoTotale()); break;
-            case 6: printf("%s%i", "L'agenzia nel giorno selezionato ha guadagnato $", guadagnoPerGiorno()); break;
+            case 5: passeggeriPerLuogoArrivo(); break;
+            case 6: printf("%s%i", "Guadagno totale dell'agenzia: $", guadagnoTotale()); break;
+            case 7: printf("%s%i", "L'agenzia nel giorno selezionato ha guadagnato $", guadagnoPerGiorno()); break;
             default: break;
         }
     }
@@ -257,7 +258,7 @@ void passeggeriPerLuogoPartenza() {
             } else { break; }
         }
         if(check == 1) { }
-        else { printf("\n%s\t%s\n", _bigliettoPasseggero.utente.nome, _bigliettoPasseggero.utente.cognome); }
+        else { printf("\n%s\t%s\t%s\n", _bigliettoPasseggero.utente.nome, _bigliettoPasseggero.utente.cognome, _bigliettoPasseggero.partenza.data); }
     }
     fclose(fPtr1);
     printf("\n%s\n", "Passeggeri biglietto macchina");
@@ -277,12 +278,64 @@ void passeggeriPerLuogoPartenza() {
             fseek(fPtr2, sizeof(rotta) + sizeof(int) * 2, SEEK_CUR);
             for(int i = 0; i < num; i++) {
                 fread(&_passeggero, sizeof(passeggero), 1, fPtr2);
-                printf("\n%s\t%s\n", _passeggero.nome, _passeggero.cognome);
+                printf("\n%s\t%s\t%s\n", _passeggero.nome, _passeggero.cognome, _bigliettoMacchina.partenza.data);
             }
         }
     }
     fclose(fPtr2);
 }
+
+void passeggeriPerLuogoArrivo(){ // Mostra i passeggeri in base al luogo di arrivo
+    passeggero _passeggero;
+    rotta arrivo;
+    bigliettoMacchina _bigliettoMacchina;
+    bigliettoPasseggero _bigliettoPasseggero;
+    printf("\n%s\n", "Inserisci luogo di arrivo per cui elencare i passeggeri:");
+    scanf("%30s", arrivo.luogo);
+    printf("\n%s\n", "Lista passeggeri per il luogo di arrivo selezionato: ");
+    puts("Passeggeri biglietto singolo");
+    int check;
+    FILE* fPtr1 = ticketsPassenger(READ);
+    while(fread(&_bigliettoPasseggero, sizeof(bigliettoPasseggero), 1, fPtr1) == 1) {
+        check = 0;
+        for(int i = 0; i<lunghezza_luogo; i++) {
+            if(_bigliettoPasseggero.arrivo.luogo[i] != '\0') {
+                if(tolower(arrivo.luogo[i]) == tolower(_bigliettoPasseggero.arrivo.luogo[i])) { }
+                else { check = 1; }
+            } else { break; }
+        }
+        if(check == 1) { }
+        else { printf("\n%s\t%s\t%s\n", _bigliettoPasseggero.utente.nome, _bigliettoPasseggero.utente.cognome, _bigliettoPasseggero.arrivo.data); }
+    }
+    fclose(fPtr1);
+    printf("\n%s\n", "Passeggeri biglietto macchina");
+    int num = 0;
+    FILE* fPtr2 = ticketsCar(READ);
+    while(fread(&num, sizeof(int),1, fPtr2) == 1) {
+        fseek(fPtr2, sizeof(rotta), SEEK_CUR);
+        fread(&_bigliettoMacchina.arrivo.luogo, sizeof(rotta), 1, fPtr2);
+        check = 0;
+        for(int i = 0; i<lunghezza_luogo; i++) {
+            if(_bigliettoMacchina.arrivo.luogo[i] != '\0') {
+                if(tolower(arrivo.luogo[i]) == tolower(_bigliettoMacchina.arrivo.luogo[i])) { }
+                else { check = 1; }
+            } else { break; }
+        }
+        if(check == 1) { fseek(fPtr2, sizeof(int) * 2 + sizeof(passeggero) * num, SEEK_CUR); }
+        else {
+
+            fseek(fPtr2, sizeof(int) * 2, SEEK_CUR);
+            for(int i = 0; i < num; i++) {
+               fread(&_passeggero, sizeof(passeggero), 1, fPtr2);
+               printf("\n%s\t%s\t%s\n", _passeggero.nome, _passeggero.cognome, _bigliettoMacchina.arrivo.data);
+            }
+
+            }
+        }
+            fclose(fPtr2);
+    }
+
+
 
 // Calcola il guadagno per un giorno specifico
 int guadagnoPerGiorno() {

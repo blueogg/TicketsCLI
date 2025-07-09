@@ -66,6 +66,7 @@ int contaBigliettiTotali();
 int guadagnoTotale();
 int guadagnoPerGiorno();
 void passeggeriPerLuogoPartenza();
+void passeggeriPerLuogoArrivo();
 void nomiBigliettiPasseggero();
 
 // Funzioni di sistema
