@@ -64,7 +64,7 @@ void menu() {
     }
 }
 
-// Crea un nuovo biglietto per passeggero singolo
+// Crea un nuovo biglietto per passeggero singolo !
 void creaBigliettoPasseggero() {
     bigliettoPasseggero biglietto;
     passeggero _passeggero;
