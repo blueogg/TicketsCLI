@@ -23,7 +23,7 @@
 	<stdio.h>
 	"../headers/tickets.h"
 
-1752845274 source:c:\users\vic\ticketscli\ticketscli\lib\filemanager.c
+1752848177 source:c:\users\vic\ticketscli\ticketscli\lib\filemanager.c
 	<stdio.h>
 	"../headers/filemanager.h"
 
@@ -78,4 +78,10 @@
 1752846172 source:c:\users\vic\ticketscli\ticketscli\lib\controllo.c
 	<stdio.h>
 	"../headers/controllo.h"
+
+1752847760 source:c:\users\vic\ticketscli\ticketscli\lib\passeggeri.c
+	<stdio.h>
+	"../headers/passeggeri.h"
+	"../headers/biglietti.h"
+	"../headers/filemanager.h"
 

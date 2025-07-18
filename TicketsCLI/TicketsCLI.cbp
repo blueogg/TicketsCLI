@@ -33,8 +33,29 @@
 		</Compiler>
 		<Unit filename="data/ticketsCar.bin" />
 		<Unit filename="data/ticketsPassengers.bin" />
-		<Unit filename="headers/tickets.h" />
-		<Unit filename="lib/tickets.c">
+		<Unit filename="headers/biglietti.h" />
+		<Unit filename="headers/controllo.h" />
+		<Unit filename="headers/costanti.h" />
+		<Unit filename="headers/filemanager.h" />
+		<Unit filename="headers/listaPasseggeri.h" />
+		<Unit filename="headers/menu.h" />
+		<Unit filename="headers/passeggeri.h" />
+		<Unit filename="lib/biglietti.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/controllo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/filemanager.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/listaPasseggeri.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/passeggeri.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="main.c">

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../headers/filemanager.h"
 
-// Apre il file dei biglietti passeggeri in base alla modalità di accesso
+// RESTITUISCE PUNTATORE AL FILE DEI BIGLIETTI DI TIPO PASSEGGERO
 FILE* ticketsPassenger(ACCESS _ACCESS) {
     FILE* fPtr = NULL;
     switch(_ACCESS) {
@@ -12,7 +12,7 @@ FILE* ticketsPassenger(ACCESS _ACCESS) {
     return fPtr;
 }
 
-// Apre il file dei biglietti auto in base alla modalità di accesso
+// RESTITUISCE PUNTATORE AL FILE DEI BIGLIETTI DI TIPO MACCHINA
 FILE* ticketsCar(ACCESS _ACCESS) {
     FILE* fPtr = NULL;
     switch(_ACCESS) {

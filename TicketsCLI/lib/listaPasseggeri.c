@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include "../headers/listaPasseggeri.h"
-#include "../headers/tickets.h"
 #include "../headers/controllo.h"
 #include "../headers/menu.h"
 
+//INIZIALIZZA LA CREAZIONE DELLA LISTA
 node* initListaPasseggeri(int numeroPasseggeri) {
     node* head = NULL;
     aggiungiNodi(&head, numeroPasseggeri);
     return head;
 }
 
+//AGGIUNGE I NODI ALLA LISTA
 void aggiungiNodi(node** head, int numeroNodi) {
     passeggero _passeggero;
     for (int i = 0; i < numeroNodi; i++) {
