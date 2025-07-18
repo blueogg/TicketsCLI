@@ -17,7 +17,7 @@ void aggiungiNodi(node** head, int numeroNodi) {
         node* nuovo = malloc(sizeof(node));
         if (nuovo == NULL) {
             fprintf(stderr, "Errore allocazione memoria per nodo\n");
-            exit(menu);
+            menu();
         }
         printf("\n%s: \n", "Inserisci nome e cognome del passeggero");
         scanf("%15s%15s", _passeggero.nome, _passeggero.cognome);
