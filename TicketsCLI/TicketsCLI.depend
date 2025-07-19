@@ -45,10 +45,9 @@
 	<stdio.h>
 	"headers/tickets.h"
 
-1752847227 source:c:\users\vic\ticketscli\ticketscli\lib\listapasseggeri.c
+1752848581 source:c:\users\vic\ticketscli\ticketscli\lib\listapasseggeri.c
 	<stdio.h>
 	"../headers/listaPasseggeri.h"
-	"../headers/tickets.h"
 	"../headers/controllo.h"
 	"../headers/menu.h"
 
@@ -79,7 +78,7 @@
 	<stdio.h>
 	"../headers/controllo.h"
 
-1752847760 source:c:\users\vic\ticketscli\ticketscli\lib\passeggeri.c
+1752905565 source:c:\users\vic\ticketscli\ticketscli\lib\passeggeri.c
 	<stdio.h>
 	"../headers/passeggeri.h"
 	"../headers/biglietti.h"

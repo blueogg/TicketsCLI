@@ -13,7 +13,7 @@ void nomiBigliettiPasseggero() {
             printf("\n%s\n", "Lista dei nomi biglietti passeggero:");
             for(int i = 0; i < numeroBigliettiPasseggero; i++) {
                 fread(&biglietto, sizeof(biglietto), 1, fPtr);
-                printf("%s%i: %s %s\n", "Utente", i+1, biglietto.utente.nome, biglietto.utente.cognome);
+                printf("%s%i: %s %s\n", "Utente ", i+1, biglietto.utente.nome, biglietto.utente.cognome);
             }
             fclose(fPtr);
         } else { puts("Nessun biglietto trovato"); }
@@ -21,8 +21,38 @@ void nomiBigliettiPasseggero() {
     menu();
 }
 
-//DA SCRIVERE PLEZ
+//STAMPA LISTA COMPLETA DEGLI UTENTI DI TIPO MACCHINA
 void nomiBigliettiMacchina(){
+
+FILE* fPtr = ticketsCar(READ);
+bigliettoMacchina biglietto;
+passeggero _passeggero;
+int temp;
+int numeroBigliettiMacchina = contaBigliettiMacchina();
+
+if(fPtr != NULL){
+    printf("\n%s\n", "Lista dei nomi biglietti macchina:");
+    for(int i = 0; i < numeroBigliettiMacchina; i++){
+
+        fread(&temp, sizeof(int), 1, fPtr);
+        fseek(fPtr, sizeof(rotta) * 2 + sizeof(int) *2, SEEK_CUR);
+        for(int j = 0; j < temp; j++){
+        fread(&_passeggero, sizeof(passeggero), 1, fPtr);
+        printf("%s%i: %s %s\n", "Utente ", j+1, _passeggero.nome, _passeggero.cognome);
+        }
+
+
+    }
+
+
+
+
+}
+
+
+
+
+
 
 }
 
