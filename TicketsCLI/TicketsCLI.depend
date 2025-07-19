@@ -84,3 +84,54 @@
 	"../headers/biglietti.h"
 	"../headers/filemanager.h"
 
+1752922570 source:c:\users\vic\progetto\ticketscli\ticketscli\lib\biglietti.c
+	<stdio.h>
+	"../headers/filemanager.h"
+	"../headers/biglietti.h"
+	"../headers/controllo.h"
+	"../headers/listaPasseggeri.h"
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\filemanager.h
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\biglietti.h
+	"./passeggeri.h"
+	"./costanti.h"
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\passeggeri.h
+	"./costanti.h"
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\costanti.h
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\controllo.h
+	"./costanti.h"
+	"./passeggeri.h"
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\listapasseggeri.h
+	"./passeggeri.h"
+
+1752922570 source:c:\users\vic\progetto\ticketscli\ticketscli\lib\controllo.c
+	<stdio.h>
+	"../headers/controllo.h"
+
+1752922570 source:c:\users\vic\progetto\ticketscli\ticketscli\lib\filemanager.c
+	<stdio.h>
+	"../headers/filemanager.h"
+
+1752922570 source:c:\users\vic\progetto\ticketscli\ticketscli\lib\listapasseggeri.c
+	<stdio.h>
+	"../headers/listaPasseggeri.h"
+	"../headers/controllo.h"
+	"../headers/menu.h"
+
+1752922570 c:\users\vic\progetto\ticketscli\ticketscli\headers\menu.h
+
+1752922570 source:c:\users\vic\progetto\ticketscli\ticketscli\lib\menu.c
+	<stdio.h>
+	"../headers/menu.h"
+
+1752922570 source:c:\users\vic\progetto\ticketscli\ticketscli\lib\passeggeri.c
+	<stdio.h>
+	"../headers/passeggeri.h"
+	"../headers/biglietti.h"
+	"../headers/filemanager.h"
+
