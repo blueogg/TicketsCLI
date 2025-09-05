@@ -2,8 +2,18 @@
 #include "../headers/passeggeri.h"
 #include "../headers/biglietti.h"
 #include "../headers/filemanager.h"
+/**
+ * @file passeggeri.c
+ * @author Jarno Galesi, Victor Galesi, Mattia di Tondo
+ * @date 23/07/2025
+ * @version 1.0
+ */
 
 // STAMPA LISTA COMPLETA DEGLI UTENTI DI TIPO PASSEGGERO
+/**
+ * @pre File ticketsPassengers.bin esistente e leggibile
+ * @post Stampa lista passeggeri o messaggio "Nessun biglietto trovato"
+ */
 void nomiBigliettiPasseggero() {
     bigliettoPasseggero biglietto;
     FILE* fPtr = ticketsPassenger(READ);
@@ -22,6 +32,10 @@ void nomiBigliettiPasseggero() {
 }
 
 //STAMPA LISTA COMPLETA DEGLI UTENTI DI TIPO MACCHINA
+/**
+ * @pre File ticketsCar.bin esistente e leggibile
+ * @post Stampa lista passeggeri auto con formato "Utente N: Nome Cognome"
+ */
 void nomiBigliettiMacchina(){
 
 FILE* fPtr = ticketsCar(READ);
@@ -57,6 +71,10 @@ if(fPtr != NULL){
 }
 
 //STAMPA LISTA DEI PASSEGGERI DATO UN LUOGO DI PARTENZA
+/**
+ * @pre Luogo partenza inserito da stdin (max 30 caratteri)
+ * @post Stampa passeggeri filtrati per luogo (case-insensitive)
+ */
 void passeggeriPerLuogoPartenza() {
     passeggero _passeggero;
     rotta partenza;
@@ -105,6 +123,10 @@ void passeggeriPerLuogoPartenza() {
 }
 
 //STAMPA LISTA DEI PASSEGGERI DATO UN LUOGO DI ARRIVO
+/**
+ * @pre Luogo arrivo inserito da stdin (max 30 caratteri)
+ * @post Stampa passeggeri filtrati per luogo arrivo (case-insensitive)
+ */
 void passeggeriPerLuogoArrivo(){
 passeggero _passeggero;
     rotta arrivo;

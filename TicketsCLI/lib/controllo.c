@@ -2,6 +2,18 @@
 #include "../headers/controllo.h"
 
 //PERMETTE DI UTILIZZARE STRTOK SU PIU' STRINGHE CONTEMPORANEAMENTE
+
+/**
+ * @file controllo.c
+ * @author Jarno Galesi, Victor Galesi, Mattia di Tondo
+ * @date 23/07/2025
+ * @version 1.0
+ */
+
+/**
+ * @pre delim != NULL, nextp puntatore valido
+ * @post Modifica str sostituendo i delim con '\0'
+ */
 char* strtok_r(char *str, const char *delim, char **nextp) {
     char *ret;
     if (str == NULL) { str = *nextp; }
@@ -15,6 +27,10 @@ char* strtok_r(char *str, const char *delim, char **nextp) {
 }
 
 // CONTROLLA SE IL BUFFER DI INPUT CONTIENE CARATTERI (DATO INSERITO IN SCANF TROPPO LUNGO)
+/**
+ * @pre Nessuna
+ * @post Chiama menu() se trova caratteri nel buffer stdin
+ */
 void controlloBuffer() {
     int a = 0;
     int c;
@@ -23,6 +39,10 @@ void controlloBuffer() {
 }
 
 // CONTROLLA SE IL TIPO DI DATO INSERITO SEGUE LA FORMATTAZIONE RICHIESTA
+/**
+ * @pre luogo/data/ora devono essere stringhe valide
+ * @post Interrompe l'esecuzione con menu() se dati non validi
+ */
 void controlloDatiSintattico(char luogo[lunghezza_luogo], char data[lunghezza_data], char ora[lunghezza_ora]) {
     int j = 0;
     while(luogo[j] != '\0') {
@@ -86,6 +106,10 @@ void controlloDatiSintattico(char luogo[lunghezza_luogo], char data[lunghezza_da
 }
 
 // CONTROLLA LA VALIDITA' DEL NOME / COGNOME PASSEGGERO (ALFA)
+/**
+ * @pre _passeggero.nome/cognome non NULL
+ * @post Chiama menu() se nome/cognome non alfabetici
+ */
 void controlloNome(passeggero _passeggero) {
     int j = 0;
     while(_passeggero.nome[j] != '\0') {
@@ -106,6 +130,10 @@ void controlloNome(passeggero _passeggero) {
 }
 
 // CONTROLLA SE LE DATE DI PARTENZA E ARRIVO SONO CORRETTE (NESSUNA TRATTA DURA PIU' DI 2 GIORNI)
+/**
+ * @pre data1 e data2 nel formato dd-mm-yyyy
+ * @post Verifica coerenza temporale (max 2 giorni differenza)
+ */
 void controlloDataSemantico(char data1[lunghezza_data], char data2[lunghezza_data]) {
 char data_copia_1[lunghezza_data];
     strcpy(data_copia_1, data1);

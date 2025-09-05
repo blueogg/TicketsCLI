@@ -1,0 +1,61 @@
+# depslib dependency file v1.0
+1752922617 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\lib\biglietti.c
+	<stdio.h>
+	"../headers/filemanager.h"
+	"../headers/biglietti.h"
+	"../headers/controllo.h"
+	"../headers/listaPasseggeri.h"
+
+1753191025 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\filemanager.h
+
+1752922617 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\biglietti.h
+	"./passeggeri.h"
+	"./costanti.h"
+
+1752922617 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\passeggeri.h
+	"./costanti.h"
+
+1752922617 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\costanti.h
+
+1752922617 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\controllo.h
+	"./costanti.h"
+	"./passeggeri.h"
+
+1752922617 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\listapasseggeri.h
+	"./passeggeri.h"
+
+1752922617 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\lib\controllo.c
+	<stdio.h>
+	"../headers/controllo.h"
+
+1753190949 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\lib\filemanager.c
+	<stdio.h>
+	"../headers/filemanager.h"
+
+1753191032 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\lib\listapasseggeri.c
+	<stdio.h>
+	"../headers/filemanager.h"
+	"../headers/listaPasseggeri.h"
+	"../headers/controllo.h"
+	"../headers/menu.h"
+	"../headers/biglietti.h"
+	"../headers/filemanager.h"
+	"../headers/passeggeri.h"
+
+1752922617 c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\headers\menu.h
+
+1753190949 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\lib\menu.c
+	<stdio.h>
+	"../headers/menu.h"
+	"../headers/filemanager.h"
+
+1752922617 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\lib\passeggeri.c
+	<stdio.h>
+	"../headers/passeggeri.h"
+	"../headers/biglietti.h"
+	"../headers/filemanager.h"
+
+1752922617 source:c:\users\jarno\downloads\ticketscli-main\ticketscli-main\ticketscli\main.c
+	<stdio.h>
+	"headers/menu.h"
+

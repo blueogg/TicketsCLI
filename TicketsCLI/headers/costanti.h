@@ -7,3 +7,7 @@
     #define lunghezza_cognome 15
 #endif
 
+/**
+ * @file costanti.h
+ * @brief Costanti globali del progetto
+ */

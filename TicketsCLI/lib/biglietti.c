@@ -3,8 +3,18 @@
 #include "../headers/biglietti.h"
 #include "../headers/controllo.h"
 #include "../headers/listaPasseggeri.h"
+/**
+ * @file biglietti.c
+ * @author Jarno Galesi, Victor Galesi, Mattia di Tondo
+ * @date 23/07/2025
+ * @version 1.0
+ */
 
 // CREA UN NUOVO BIGLIETTO DI TIPO PASSEGGERO
+/**
+ * @pre Input utente valido (scanf completati)
+ * @post Scrive biglietto passeggero su ticketsPassengers o errore su stdout
+ */
 void creaBigliettoPasseggero() {
     bigliettoPasseggero biglietto;
     passeggero _passeggero;
@@ -39,6 +49,10 @@ void creaBigliettoPasseggero() {
 }
 
 // CREA UN NUOVO BIGLIETTO DI TIPO MACCHINA
+/**
+ * @pre Input utente valido, lista passeggeri inizializzata
+ * @post Scrive biglietto auto su ticketsCar
+ */
 void creaBigliettoMacchina() {
     int numeroPasseggeri;
     int dimensioniAuto;
@@ -86,9 +100,18 @@ void creaBigliettoMacchina() {
 }
 
 // RESTITUISCE IL NUMERO TOTALE DI BIGLIETTI
+/**
+ * @pre File ticketsPassengers.bin e ticketsCar.bin esistenti
+ * @post Restituisce conteggio totale biglietti
+ */
 int contaBigliettiTotali() { return contaBigliettiPasseggero() + contaBigliettiMacchina(); }
 
 // RESTITUISCE IL NUMERO DI BIGLIETTI DI TIPO PASSEGGERO
+
+/**
+ * @pre File ticketsPassengers.bin esistente
+ * @post Restituisce numero biglietti passeggeri
+ */
 int contaBigliettiPasseggero() {
     int contatore = 0;
     bigliettoPasseggero biglietto;
@@ -101,6 +124,10 @@ int contaBigliettiPasseggero() {
 }
 
 // RESTITUISCE IL NUMERO DI BIGLIETTI DI TIPO MACCHINA
+/**
+ * @pre File ticketsCar.bin esistente
+ * @post Restituisce numero biglietti auto
+ */
 int contaBigliettiMacchina() {
     int temporaneo;
     int contatore = 0;
@@ -115,6 +142,10 @@ int contaBigliettiMacchina() {
 }
 
 //RESTITUISCE IL GUADAGNO PER UN DETERMINATO GIORNO
+/**
+ * @pre Data inserita nel formato dd-mm-yyyy
+ * @post Restituisce guadagno per la data specificata
+ */
 int guadagnoPerGiorno() {
     int totale = 0;
     rotta partenza;
@@ -161,6 +192,11 @@ int guadagnoPerGiorno() {
 }
 
 //RESTITUISCE IL GUADAGNO PER UN DETERMINATO GIORNO
+
+/**
+ * @pre File dei biglietti esistenti
+ * @post Restituisce guadagno totale
+ */
 int guadagnoTotale() {
     int totale = 0;
     int valore = 0;
